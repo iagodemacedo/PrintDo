@@ -4,7 +4,7 @@ import tempfile
 import textwrap
 from datetime import datetime
 
-from .config import PIL_AVAILABLE, Image, ImageDraw, ImageFont
+from .config import PIL_AVAILABLE, Image, ImageDraw, ImageFont, SYSTEM_FONT_PATHS, EMOJI_FONT_PATHS
 
 
 
@@ -18,11 +18,17 @@ def create_task_image(task_data):
         # Image dimensions (optimized for thermal printer)
         width = 576  # 72mm thermal printer width
         
-        # Load fonts first to calculate sizes
-        try:
-            title_font = ImageFont.truetype("arial.ttf", 80)
-            date_font = ImageFont.truetype("arial.ttf", 32)
-        except:
+        # Load fonts first to calculate sizes (platform-aware)
+        title_font = None
+        date_font = None
+        for fp in SYSTEM_FONT_PATHS:
+            try:
+                title_font = ImageFont.truetype(fp, 80)
+                date_font = ImageFont.truetype(fp, 32)
+                break
+            except (OSError, IOError):
+                continue
+        if title_font is None:
             title_font = ImageFont.load_default()
             date_font = ImageFont.load_default()
 
@@ -51,15 +57,10 @@ def create_task_image(task_data):
         # Draw lightning bolt emoji after title
         emoji_y = title_y + len(title_lines) * 95 + 20
         
-        # Try to use a font that supports emojis
+        # Try to use a font that supports emojis (platform-aware)
         emoji_font = None
-        font_paths = [
-            "C:/Windows/Fonts/seguiemj.ttf",  # Segoe UI Emoji
-            "C:/Windows/Fonts/segoeuiemoji.ttf",  # Alternative name
-            "C:/Windows/Fonts/seguisym.ttf",  # Segoe UI Symbol
-            "C:/Windows/Fonts/arial.ttf",  # Arial fallback
-        ]
-        
+        font_paths = EMOJI_FONT_PATHS + SYSTEM_FONT_PATHS
+
         for font_path in font_paths:
             try:
                 emoji_font = ImageFont.truetype(font_path, 150)

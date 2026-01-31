@@ -31,4 +31,28 @@ except ImportError:
     PDF2IMAGE_AVAILABLE = False
     print("Warning: pdf2image not installed. PDF to image conversion will not work.")
 
+# Platform-aware font paths
+import platform
+
+if platform.system() == "Darwin":
+    SYSTEM_FONT_PATHS = [
+        "/System/Library/Fonts/SFNSDisplay.ttf",
+        "/System/Library/Fonts/Helvetica.ttc",
+        "/System/Library/Fonts/Supplemental/Arial.ttf",
+        "/Library/Fonts/Arial.ttf",
+    ]
+    EMOJI_FONT_PATHS = [
+        "/System/Library/Fonts/Apple Color Emoji.ttc",
+    ]
+else:
+    SYSTEM_FONT_PATHS = [
+        "C:/Windows/Fonts/arial.ttf",
+        "arial.ttf",
+    ]
+    EMOJI_FONT_PATHS = [
+        "C:/Windows/Fonts/seguiemj.ttf",
+        "C:/Windows/Fonts/segoeuiemoji.ttf",
+        "C:/Windows/Fonts/seguisym.ttf",
+    ]
+
 # OpenAI and printer imports

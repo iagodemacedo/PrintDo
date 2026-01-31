@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+            background: white;
+            width: 576px;
+        }
+        .ticket {
+            padding: 16px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+        .priority {
+            font-size: 36px;
+            font-family: 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;
+        }
+        .area-badge {
+            font-size: 12px;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .project-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+            margin-bottom: 2px;
+        }
+        .task-name {
+            text-align: center;
+            font-size: 38px;
+            font-weight: 700;
+            color: #000;
+            line-height: 1.15;
+            word-wrap: break-word;
+            padding: 8px 4px;
+        }
+        .separator {
+            border-top: 3px dashed #999;
+            margin: 10px 0;
+        }
+        .thin-sep {
+            border-top: 1px solid #ddd;
+            margin: 8px 0;
+        }
+        .info-grid {
+            padding: 4px 0;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+        }
+        .info-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .info-value {
+            font-size: 15px;
+            font-weight: 600;
+            color: #000;
+        }
+        .tags {
+            text-align: center;
+            padding: 8px 0;
+        }
+        .tag {
+            display: inline-block;
+            background: #000;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 3px 10px;
+            margin: 2px;
+        }
+        .notes {
+            padding: 8px 0;
+        }
+        .notes-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+        .notes-text {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.4;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .perforation {
+            background: repeating-linear-gradient(
+                to right, #000 0, #000 6px, transparent 6px, transparent 12px
+            );
+            height: 3px;
+            margin-top: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="ticket">
+        <!-- Header: priority + area -->
+        <div class="header">
+            <div class="priority">{{ priority_dots }}</div>
+            {% if task.area_name %}
+            <div class="area-badge">{{ task.area_name }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Project -->
+        {% if task.project_name %}
+        <div class="project-label">{{ task.project_name }}</div>
+        {% endif %}
+
+        <!-- Task Title -->
+        <div class="task-name">{{ task.name }}</div>
+
+        <div class="separator"></div>
+
+        <!-- Info Grid -->
+        <div class="info-grid">
+            {% if task.due_date and task.due_date != "No deadline" %}
+            <div class="info-row">
+                <span class="info-label">Deadline</span>
+                <span class="info-value">{{ task.due_date }}</span>
+            </div>
+            {% endif %}
+            {% if task.project_name %}
+            <div class="info-row">
+                <span class="info-label">Project</span>
+                <span class="info-value">{{ task.project_name }}</span>
+            </div>
+            {% endif %}
+            {% if task.area_name %}
+            <div class="info-row">
+                <span class="info-label">Area</span>
+                <span class="info-value">{{ task.area_name }}</span>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Tags -->
+        {% if task.tag_names %}
+        <div class="thin-sep"></div>
+        <div class="tags">
+            {% for tag in task.tag_names %}
+            <span class="tag">{{ tag }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Notes -->
+        {% if task.notes %}
+        <div class="thin-sep"></div>
+        <div class="notes">
+            <div class="notes-label">Notes</div>
+            <div class="notes-text">{{ task.notes }}</div>
+        </div>
+        {% endif %}
+
+        <div class="perforation"></div>
+    </div>
+</body>
+</html>

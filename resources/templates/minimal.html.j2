@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+            background: white;
+            width: 576px;
+        }
+        .ticket {
+            padding: 24px 16px;
+            text-align: center;
+        }
+        .task-name {
+            font-size: 44px;
+            font-weight: 700;
+            color: #000;
+            line-height: 1.15;
+            word-wrap: break-word;
+            padding: 0 8px;
+        }
+        .separator {
+            border-top: 3px dashed #999;
+            margin: 16px 0;
+        }
+        .due-date {
+            font-size: 24px;
+            font-weight: 600;
+            color: #000;
+        }
+        .perforation {
+            background: repeating-linear-gradient(
+                to right, #000 0, #000 6px, transparent 6px, transparent 12px
+            );
+            height: 3px;
+            margin-top: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="ticket">
+        <div class="task-name">{{ task.name }}</div>
+        {% if task.due_date and task.due_date != "No deadline" %}
+        <div class="separator"></div>
+        <div class="due-date">{{ task.due_date }}</div>
+        {% endif %}
+        <div class="perforation"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, 'Helvetica Neue', 'SF Pro Display', Arial, sans-serif;
+            background-color: white;
+            width: 576px;
+            padding: 0;
+            margin: 0;
+        }
+        .ticket {
+            background: white;
+            padding: 20px 16px;
+        }
+        .priority-indicator {
+            text-align: center;
+            font-size: 40px;
+            margin-bottom: 8px;
+            font-family: 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;
+        }
+        .task-name {
+            text-align: center;
+            font-size: 42px;
+            font-weight: 700;
+            line-height: 1.15;
+            color: #000;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            padding: 8px 8px;
+        }
+        .separator {
+            border-top: 3px dashed #999;
+            margin: 12px 0;
+        }
+        .perforation {
+            background: repeating-linear-gradient(
+                to right,
+                #000 0, #000 6px,
+                transparent 6px, transparent 12px
+            );
+            height: 3px;
+            margin: 8px 0;
+        }
+        .meta-section {
+            padding: 6px 0;
+        }
+        .meta-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 0;
+        }
+        .meta-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .meta-value {
+            font-size: 18px;
+            font-weight: 600;
+            color: #000;
+        }
+        .due-date {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 700;
+            color: #000;
+            padding: 4px 0;
+        }
+        .project-name {
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            color: #555;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .tags {
+            text-align: center;
+            padding: 6px 0;
+        }
+        .tag {
+            display: inline-block;
+            background: #000;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 3px 10px;
+            margin: 2px 3px;
+            letter-spacing: 0.5px;
+        }
+        .notes-section {
+            padding: 8px 0;
+        }
+        .notes-text {
+            font-size: 15px;
+            color: #333;
+            line-height: 1.4;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="ticket">
+        <!-- Priority -->
+        <div class="priority-indicator">{{ priority_dots }}</div>
+
+        <!-- Project -->
+        {% if task.project_name %}
+        <div class="project-name">{{ task.project_name }}</div>
+        {% endif %}
+
+        <!-- Task Title -->
+        <div class="task-name">{{ task.name }}</div>
+
+        <div class="separator"></div>
+
+        <!-- Due Date -->
+        {% if task.due_date and task.due_date != "No deadline" %}
+        <div class="due-date">{{ task.due_date }}</div>
+        {% endif %}
+
+        <!-- Tags -->
+        {% if task.tag_names %}
+        <div class="tags">
+            {% for tag in task.tag_names %}
+            <span class="tag">{{ tag }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Notes -->
+        {% if task.notes %}
+        <div class="separator"></div>
+        <div class="notes-section">
+            <div class="notes-text">{{ task.notes }}</div>
+        </div>
+        {% endif %}
+
+        <!-- Bottom perforation -->
+        <div class="perforation"></div>
+    </div>
+</body>
+</html>

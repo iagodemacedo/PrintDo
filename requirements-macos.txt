@@ -1,0 +1,28 @@
+# PrintDo macOS dependencies
+
+# GUI
+PySide6>=6.6
+
+# Templating
+Jinja2>=3.1
+
+# Printing
+python-escpos>=3.0
+pyusb>=1.2
+
+# AI (kept from original)
+openai
+arcadepy
+agents
+agents-arcade
+
+# Database
+libsql-experimental
+
+# Utilities
+python-dotenv
+pydantic
+Pillow
+
+# Packaging (dev only)
+py2app

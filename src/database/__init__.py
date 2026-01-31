@@ -2,5 +2,6 @@
 
 # Primary database interface
 from .task_db import TaskDatabase, TaskRecord
+from .local_state import PrintStateDB
 
-__all__ = ['TaskDatabase', 'TaskRecord']
+__all__ = ['TaskDatabase', 'TaskRecord', 'PrintStateDB']
