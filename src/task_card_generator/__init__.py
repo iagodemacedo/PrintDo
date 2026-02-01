@@ -1,23 +1,19 @@
-"""Task Card Generator - AI-powered task card creation for thermal printers."""
+"""PrintDo - Print your Things 3 tasks on a thermal printer."""
 
-__version__ = "1.0.0"
-__author__ = "Your Name"
+__version__ = "2.0.0"
 
-from .ai_client import get_task_from_ai, parse_ai_response, analyze_emails_for_tasks, parse_task_analysis
-from .arcade_client import get_task_from_arcade_tool, authorize_arcade_tool, ArcadeTaskGenerator
-from .image_generator import create_task_image
-from .pdf_generator import create_task_pdf
-from .printer import print_to_thermal_printer
+from .things3_service import Things3Service, Things3Task
+from .print_log import PrintLog
+from .template_engine import TemplateEngine
+from .html_generator import create_task_image_from_html
+from .printer import print_to_thermal_printer, list_printers
 
 __all__ = [
-    "get_task_from_ai",
-    "parse_ai_response",
-    "analyze_emails_for_tasks",
-    "parse_task_analysis", 
-    "get_task_from_arcade_tool",
-    "authorize_arcade_tool",
-    "ArcadeTaskGenerator",
-    "create_task_pdf",
-    "create_task_image",
+    "Things3Service",
+    "Things3Task",
+    "PrintLog",
+    "TemplateEngine",
+    "create_task_image_from_html",
     "print_to_thermal_printer",
+    "list_printers",
 ]

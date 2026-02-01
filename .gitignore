@@ -87,3 +87,7 @@ secrets/
 htmlcov/
 .coverage
 .coverage.*
+
+# py2app build
+*.app
+*.dmg
