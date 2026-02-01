@@ -1,34 +1,15 @@
-"""Configuration and imports for the task card generator."""
+"""Configuration for PrintDo."""
 
-# PIL imports
-try:
-    from PIL import Image, ImageDraw, ImageFont
+import os
 
-    PIL_AVAILABLE = True
-except ImportError:
-    PIL_AVAILABLE = False
-    print("Warning: PIL not installed. Task card images will not be generated.")
+# App paths
+APP_SUPPORT_DIR = os.path.expanduser("~/Library/Application Support/PrintDo")
+CUSTOM_TEMPLATES_DIR = os.path.join(APP_SUPPORT_DIR, "templates")
 
-# ReportLab imports
-try:
-    from reportlab.lib import colors
-    from reportlab.lib.enums import TA_CENTER
-    from reportlab.lib.pagesizes import letter
-    from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
-    from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer
+# Defaults
+DEFAULT_POLL_INTERVAL = 60  # seconds
+DEFAULT_PRINTER_WIDTH = 576  # pixels (72mm thermal printer at 203 DPI)
 
-    REPORTLAB_AVAILABLE = True
-except ImportError:
-    REPORTLAB_AVAILABLE = False
-    print("Warning: reportlab not installed. PDF functionality will be limited.")
-
-# pdf2image imports
-try:
-    from pdf2image import convert_from_path
-
-    PDF2IMAGE_AVAILABLE = True
-except ImportError:
-    PDF2IMAGE_AVAILABLE = False
-    print("Warning: pdf2image not installed. PDF to image conversion will not work.")
-
-# OpenAI and printer imports
+# Ensure directories exist
+os.makedirs(APP_SUPPORT_DIR, exist_ok=True)
+os.makedirs(CUSTOM_TEMPLATES_DIR, exist_ok=True)

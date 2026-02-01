@@ -1,7 +1,7 @@
-agents
-agents-arcade
-arcadepy
-libsql-experimental
-openai
+rumps
+Jinja2
+Pillow
 python-dotenv
 pydantic
+pyobjc-framework-WebKit
+pyobjc-framework-Cocoa

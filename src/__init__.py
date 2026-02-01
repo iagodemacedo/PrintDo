@@ -1,1 +1,1 @@
-"""Task Card Generator package."""
+"""PrintDo package."""
