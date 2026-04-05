@@ -45,7 +45,7 @@ class PrintDoApp(rumps.App):
         from .main_window import open_main_window
 
         controller = open_main_window(
-            self.things3, self.template_engine, self.print_log, self.printer_name
+            self.things3, self.template_engine, self.print_log, self
         )
         self._window_refs.append(controller)
 

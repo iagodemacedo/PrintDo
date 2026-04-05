@@ -73,7 +73,7 @@ class MainWindowController(AppKit.NSObject):
         if self is None:
             return None
 
-        self.things3, self.template_engine, self.print_log, self.printer_name = services
+        self.things3, self.template_engine, self.print_log, self.app_ref = services
         self.tasks = []
         self.task_rows = []
         self.previewWindows = []
@@ -302,7 +302,7 @@ class MainWindowController(AppKit.NSObject):
                 image_path = create_task_image_from_html(html, width=width, scale=scale)
                 if image_path:
                     print_to_thermal_printer(
-                        image_path, self.printer_name,
+                        image_path, self.app_ref.printer_name,
                         top_margin=top_m, bottom_margin=bot_m,
                     )
                     self.print_log.mark_printed(task.id, task.name)
@@ -347,10 +347,10 @@ class MainWindowController(AppKit.NSObject):
         AppKit.NSApp.activateIgnoringOtherApps_(True)
 
 
-def open_main_window(things3, template_engine, print_log, printer_name):
+def open_main_window(things3, template_engine, print_log, app_ref):
     """Open the main window. Must be called on the main thread."""
     controller = MainWindowController.alloc().initWithServices_(
-        (things3, template_engine, print_log, printer_name)
+        (things3, template_engine, print_log, app_ref)
     )
     controller.show()
     return controller

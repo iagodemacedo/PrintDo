@@ -51,6 +51,7 @@ def print_to_thermal_printer(
 
     cmd.extend([
         "-o", "orientation-requested=3",   # force portrait
+        "-o", "Resolution=203x203dpi",     # match thermal printer native DPI
         "-o", "TmxPaperCut=NoCut",         # we handle cut after bottom margin
         "-o", "TmxPaperReduction=Both",    # trim blank space from image
     ])
